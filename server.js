@@ -1,27 +1,34 @@
+//Global variables and import dependencies
 const { uuid } = require('uuidv4');
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
+
+//process.env.PORT is for Heroku deployment; 3001 is for local
 const PORT = process.env.PORT || 3001;
 const { deletion } = require('./public/assets/js/delete');
 
+//initialize app
 const app = express();
 
+//tell the user what to expect from client
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+//on deploy, use index.html
 app.use(express.static('public'));
 
-//html routes: GET: /notes => notes.html & * => index.html
+//html routes
+//'/' for redundancy. covered in line 17
 app.get('/', (req, res) =>
   res.sendFile(path.join(__dirname, 'public/index.html'))
 )
-
-
+//html route for /notes
 app.get('/notes', (req, res) =>
   res.sendFile(path.join(__dirname, 'public/notes.html'))
 )
 
+// /api routes
 //GET: /api/notes ==> read db.json ==> return all notes as JSON
 app.get('/api/notes', async (req, res) => {
   try {
@@ -74,6 +81,7 @@ app.post('/api/notes', async (req, res) => {
 }
 )
 
+//Delete function. Read db.json => run deletion function to remove the req.param.id item that matches => write new file without the deleted item
 app.delete('/api/notes/:id', async (req, res) => {
   try {
     const getData = await fs.readFileSync('./db/db.json', 'utf-8');
@@ -92,6 +100,7 @@ app.delete('/api/notes/:id', async (req, res) => {
 }
 )
 
+//catch all html route to send user back to index.html if they put params that we don't account for
 app.get('*', (req, res) =>
   res.sendFile(path.join(__dirname, 'public/index.html'))
 )
