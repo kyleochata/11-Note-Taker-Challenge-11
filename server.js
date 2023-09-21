@@ -24,7 +24,7 @@ app.get('/notes', (req, res) =>
 //GET: /api/notes ==> read db.json ==> return all notes as JSON
 app.get('/api/notes', async (req, res) => {
   try {
-    const data = await fs.readFile('./db/db.json', 'utf-8');
+    const data = await fs.readFile('db/db.json', 'utf-8');
     const notesArr = JSON.parse(data);
     return res.json(notesArr);
   } catch (err) {
@@ -46,12 +46,12 @@ app.post('/api/notes', async (req, res) => {
         note_id: uuidv4()
       }
 
-      const data = await fs.readFile('/db/db.json', 'utf-8');
+      const data = await fs.readFile('db/db.json', 'utf-8');
       const dataArr = JSON.parse(data);
 
       dataArr.push(newNote);
       const stringDataArr = JSON.stringify(dataArr, null, 2);
-      await fs.writeFile('/db/db.json', stringDataArr);
+      await fs.writeFile('db/db.json', stringDataArr);
 
       console.info(`New ${newNote.title} added to JSON file`)
 
