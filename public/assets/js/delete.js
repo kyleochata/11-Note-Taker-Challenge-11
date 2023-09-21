@@ -5,6 +5,7 @@ const deletion = (arr, id) => {
       accum.push(item);
       console.log(accum)
     }
+    return accum;
   }, []);
 }
 
@@ -27,4 +28,4 @@ const v = [
   }
 ]
 
-deletion(v, 'a50a43b6-e0fa-49dc-8844-52c0e5a6ba83');
+module.exports = { deletion }

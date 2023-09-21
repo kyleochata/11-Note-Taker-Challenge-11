@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 const fs = require('fs');
 const PORT = 3001;
+const { deletion } = require('./public/assets/js/delete');
 
 const app = express();
 
@@ -74,13 +75,22 @@ app.post('/api/notes', async (req, res) => {
 )
 
 app.delete('/api/notes/:id', async (req, res) => {
-  const getData = await fs.readFileSync('./db/db.json', 'utf-8');
-  const handleData = JSON.parse(getData);
+  try {
+    const getData = await fs.readFileSync('./db/db.json', 'utf-8');
+    const handleData = JSON.parse(getData);
+    const inputId = req.params.id;
 
-  const inputId = req.params.id;
-  console.log(handleData, inputId);
+    const deletedArr = deletion(handleData, inputId);
 
-})
+    const stringDeletedArr = JSON.stringify(deletedArr, null, 2);
+
+    await fs.writeFileSync('./db/db.json', stringDeletedArr);
+    return res.json('ok');
+  } catch (err) {
+    return res.status(500).json(err)
+  }
+}
+)
 
 app.get('*', (req, res) =>
   res.sendFile(path.join(__dirname, 'public/index.html'))
