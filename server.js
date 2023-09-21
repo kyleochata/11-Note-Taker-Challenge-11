@@ -1,4 +1,4 @@
-const uuidv4 = require('uuid');
+const { uuid } = require('uuidv4');
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
@@ -43,15 +43,17 @@ app.post('/api/notes', async (req, res) => {
       const newNote = {
         title,
         text,
-        note_id: uuidv4()
+        id: uuid()
       }
 
       const data = await fs.readFileSync('./db/db.json', 'utf-8');
       const dataArr = JSON.parse(data);
 
       dataArr.push(newNote);
+
       const stringDataArr = JSON.stringify(dataArr, null, 2);
-      await fs.writeFile('./db/db.json', stringDataArr);
+
+      await fs.writeFileSync('./db/db.json', stringDataArr);
 
       console.info(`New ${newNote.title} added to JSON file`)
 
@@ -70,6 +72,16 @@ app.post('/api/notes', async (req, res) => {
   }
 }
 )
+
+app.delete('/api/notes/:id', async (req, res) => {
+  const getData = await fs.readFileSync('./db/db.json', 'utf-8');
+  const handleData = JSON.parse(getData);
+
+  const inputId = req.params.id;
+  console.log(handleData, inputId);
+
+})
+
 app.get('*', (req, res) =>
   res.sendFile(path.join(__dirname, 'public/index.html'))
 )
