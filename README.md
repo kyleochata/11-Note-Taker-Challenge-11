@@ -4,7 +4,7 @@
 
 ## Description
 
-This project is aimed to create an app to develop a note taker for a user to keep track of tasks ranging from simple to important or complex. This takes weight off of the user of having to remember everything from small chores to important deadlines. The challenge of this project was creating server files that will take requests from the client, handle that request appropriately and send the response back to the client to be rendered or notify the user that some action has taken place. Another challenge faced was getting the application deployed through Heroku. Due to the nature of the application being dynamic, GitHub pages won't be showing all of the functionality of our backend code. Below are screenshots of the deployed application which can be found [here]().
+This project is aimed to create an app to develop a note taker for a user to keep track of tasks ranging from simple to important or complex. This takes weight off of the user of having to remember everything from small chores to important deadlines. The challenge of this project was creating server files that will take requests from the client, handle that request appropriately and send the response back to the client to be rendered or notify the user that some action has taken place. Another challenge faced was getting the application deployed through Heroku. Due to the nature of the application being dynamic, GitHub pages won't be showing all of the functionality of our backend code. Below are screenshots of the deployed application which can be found [here](https://stark-chamber-55940-5c95074902c3.herokuapp.com/).
 
 Load Screen:
 
