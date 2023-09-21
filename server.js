@@ -2,7 +2,7 @@ const { uuid } = require('uuidv4');
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 const { deletion } = require('./public/assets/js/delete');
 
 const app = express();
