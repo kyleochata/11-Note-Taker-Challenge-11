@@ -5,7 +5,6 @@ const deletion = (arr, id) => {
     const objId = item.id;
     if (id !== objId) {
       accum.push(item);
-      console.log(accum)
     }
     return accum;
   }, []);
